@@ -29,22 +29,4 @@ const router = express.Router();
 
 app.use(bodyParser.json());
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// const createNewPost = router.post("/new", (req, res) => {
-//   const newPost = new Post({
-//     title: req.body.title,
-//     body: req.body.body,
-//     date: req.body.date,
-//     author: req.body.author,
-//   });
-
-//   newPost
-//     .save()
-//     .then((savedPost) => res.json(savedPost))
-//     .catch((err) => console.log(err));
-// });
-
-// app.use("/posts", createNewPost);
-
 app.listen(5000, () => console.log("Server is running on port 5000"));
