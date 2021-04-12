@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLBoolean } = graphql;
 
 const mongoose = require("mongoose");
 const User = mongoose.model("user");
@@ -10,6 +10,8 @@ const UserType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
+    token: { type: GraphQLString },
+    loggedIn: { type: GraphQLBoolean },
     posts: {
       type: new GraphQLList(require("./post_type")),
       resolve(parentValue) {
