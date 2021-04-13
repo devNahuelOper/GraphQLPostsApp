@@ -1,6 +1,8 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import { REGISTER_USER } from "../graphql/mutations";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 class Register extends React.Component {
   constructor(props) {
@@ -26,6 +28,13 @@ class Register extends React.Component {
   render() {
     const { name, email, password } = this.state;
 
+    const formStyle = {
+      maxWidth: `${500}px`,
+      margin: "100px auto",
+      display: "flex",
+      flexDirection: "column",
+    };
+
     return (
       <Mutation
         mutation={REGISTER_USER}
@@ -40,6 +49,7 @@ class Register extends React.Component {
         {(registerUser) => (
           <div>
             <form
+              style={formStyle}
               onSubmit={(e) => {
                 e.preventDefault();
                 registerUser({
@@ -51,28 +61,57 @@ class Register extends React.Component {
                 });
               }}
             >
-              <input
+              <TextField
+                label="Name"
+                placeholder="Name"
+                value={name}
+                variant="outlined"
+                fullWidth
+                onChange={this.fieldUpdate("name")}
+              />
+              {/* <input
                 type="text"
                 placeholder="Enter your name"
                 value={name}
                 onChange={this.fieldUpdate("name")}
-              />
+              /> */}
               <br />
-              <input
+              {/* <input
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={this.fieldUpdate("email")}
+              /> */}
+              <TextField
+                label="Email"
+                placeholder="Email"
+                type="email"
+                value={email}
+                variant="outlined"
+                fullWidth
+                onChange={this.fieldUpdate("email")}
               />
               <br />
-              <input
+              {/* <input
                 type="password"
                 placeholder="Enter your password"
                 value={password}
                 onChange={this.fieldUpdate("password")}
+              /> */}
+              <TextField
+                label="Password"
+                placeholder="Password"
+                type="password"
+                value={password}
+                variant="outlined"
+                fullWidth
+                onChange={this.fieldUpdate("password")}
               />
               <br />
-              <button type="submit">Register</button>
+              {/* <button type="submit">Register</button> */}
+              <Button variant="contained" color="primary">
+                Register
+              </Button>
             </form>
           </div>
         )}
