@@ -51,8 +51,10 @@ const mutation = new GraphQLObjectType({
       },
       async resolve(_, { title, body }, ctx) {
         const validUser = await AuthService.verifyUser({ token: ctx.token });
+        console.log(validUser);
         if (validUser.loggedIn) {
           const id = validUser.id;
+          console.log(id);
           return new Post({ title, id, body}).save();
         } else {
           throw new Error("Sorry, you need to be logged in to create a post.");

@@ -11,16 +11,19 @@ textarea {
   border-radius: 0.25em;
 }
 
-.register__wrap {
+.form__wrap {
   max-width: 500px;
   margin: 100px auto;
 }
 
-#registerForm {
+form {
   display: flex;
   flex-direction: column;
 }
 
 .error {
-  color: red;
+  color: #e90d0d;
+}
+.success {
+  color: #1db11d;
 }

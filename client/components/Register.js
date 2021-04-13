@@ -63,7 +63,7 @@ class Register extends React.Component {
         update={(cache, data) => this.updateCache(cache, data)}
       >
         {(registerUser) => (
-          <div className="register__wrap">
+          <div className="form__wrap register__wrap">
             <form
               id="registerForm"
               onSubmit={(e) => {

@@ -3,6 +3,8 @@ import { Mutation } from "react-apollo";
 import TextField from "@material-ui/core/TextField";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
+import Colors from "../Colors";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 import { CREATE_POST } from "../../graphql/mutations";
 import gql from "graphql-tag";
@@ -25,6 +27,7 @@ class CreatePost extends React.Component {
       title: "",
       body: "",
       message: "",
+      messageType: "success",
     };
   }
 
@@ -65,21 +68,33 @@ class CreatePost extends React.Component {
   }
 
   render() {
-    const { title, body, message } = this.state;
+    const { title, body, message, messageType } = this.state;
 
-    const formStyle = {
-      maxWidth: `${500}px`,
-      margin: "100px auto",
-      display: "flex",
-      flexDirection: "column",
-      fontFamily: "Helvetica",
-    };
+    // const formStyle = {
+    //   maxWidth: `${500}px`,
+    //   margin: "100px auto",
+    //   display: "flex",
+    //   flexDirection: "column",
+    //   fontFamily: "Helvetica",
+    // };
+
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          light: Colors.customShade("lightBlue", 300),
+          main: Colors.lightBlueAccent,
+          dark: Colors.customShade("lightBlue", 700),
+        },
+      },
+    });
 
     return (
       <Mutation
         mutation={CREATE_POST}
         // if we error out we can set the message here
-        onError={(err) => this.setState({ message: err.message })}
+        onError={(err) =>
+          this.setState({ message: err.message, messageType: "error" })
+        }
         // we need to make sure we update our cache once our new product is created
         update={(cache, data) => this.updateCache(cache, data)}
         // when our query is complete we'll go to the index
@@ -87,14 +102,16 @@ class CreatePost extends React.Component {
           const { title } = data.createPost;
           this.setState({
             message: `New post ${title} created successfully`,
+            messageType: "success",
           });
         }}
       >
         {(createPost, { data }) => (
-          <div>
+          <div className="form__wrap createPost__wrap">
             <form
+              id="createPostForm"
               onSubmit={(e) => this.handleSubmit(e, createPost)}
-              style={formStyle}
+              // style={formStyle}
             >
               <TextField
                 label="Title"
@@ -105,11 +122,6 @@ class CreatePost extends React.Component {
                 onChange={this.fieldUpdate("title")}
               />
               <br />
-              {/* <textarea
-                onChange={this.fieldUpdate("body")}
-                value={this.state.body}
-                placeholder="body"
-              /> */}
               <TextareaAutosize
                 aria-label="minimum height"
                 rowsMin={5}
@@ -118,11 +130,13 @@ class CreatePost extends React.Component {
                 onChange={this.fieldUpdate("body")}
               />
               <br />
-              <Button variant="contained" color="secondary" type="submit">
-                Create Post
-              </Button>
+              <MuiThemeProvider theme={theme}>
+                <Button variant="contained" color="primary" type="submit">
+                  Create Post
+                </Button>
+              </MuiThemeProvider>
             </form>
-            <p>{this.state.message}</p>
+            <p className={messageType}>{message}</p>
           </div>
         )}
       </Mutation>
