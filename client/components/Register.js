@@ -17,6 +17,7 @@ class Register extends React.Component {
       password: "",
       showPassword: false,
     };
+    this.toggleShowPassword = this.toggleShowPassword.bind(this);
   }
 
   toggleShowPassword() {
