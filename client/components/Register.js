@@ -7,6 +7,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Colors from "./Colors";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 class Register extends React.Component {
   constructor(props) {
@@ -45,6 +47,15 @@ class Register extends React.Component {
       flexDirection: "column",
     };
 
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          light: Colors.customShade('blueGrey', 300),
+          main: Colors.customShade('blueGrey', 500),
+          dark: Colors.customShade("blueGrey",700)
+        },
+      },
+    });
     return (
       <Mutation
         mutation={REGISTER_USER}
@@ -112,9 +123,15 @@ class Register extends React.Component {
                 }}
               />
               <br />
-              <Button variant="contained" color="primary" type="submit">
-                Register
-              </Button>
+              <MuiThemeProvider theme={theme}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Register
+                </Button>
+              </MuiThemeProvider>
             </form>
           </div>
         )}
