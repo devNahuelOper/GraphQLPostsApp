@@ -17,6 +17,7 @@ class Register extends React.Component {
       name: "",
       email: "",
       password: "",
+      message: "",
       showPassword: false,
     };
     this.toggleShowPassword = this.toggleShowPassword.bind(this);
@@ -31,21 +32,14 @@ class Register extends React.Component {
   }
 
   updateCache(cache, { data }) {
-    console.log(data);
+    // console.log(data);
     cache.writeData({
       data: { isLoggedIn: data.register.loggedIn },
     });
   }
 
   render() {
-    const { name, email, password, showPassword } = this.state;
-
-    const formStyle = {
-      maxWidth: `${500}px`,
-      margin: "100px auto",
-      display: "flex",
-      flexDirection: "column",
-    };
+    const { name, email, password, message, showPassword } = this.state;
 
     const theme = createMuiTheme({
       palette: {
@@ -59,6 +53,7 @@ class Register extends React.Component {
     return (
       <Mutation
         mutation={REGISTER_USER}
+        onError={err => this.setState({ message: err.message})}
         onCompleted={(data) => {
           console.log(data);
           const { token } = data.register;
@@ -68,16 +63,16 @@ class Register extends React.Component {
         update={(cache, data) => this.updateCache(cache, data)}
       >
         {(registerUser) => (
-          <div>
+          <div className="register__wrap">
             <form
-              style={formStyle}
+              id="registerForm"
               onSubmit={(e) => {
                 e.preventDefault();
                 registerUser({
                   variables: {
-                    name,
-                    email,
-                    password,
+                    name: name,
+                    email: email,
+                    password: password,
                   },
                 });
               }}
@@ -133,6 +128,7 @@ class Register extends React.Component {
                 </Button>
               </MuiThemeProvider>
             </form>
+            <p className="error">{message}</p>
           </div>
         )}
       </Mutation>

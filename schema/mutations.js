@@ -59,24 +59,6 @@ const mutation = new GraphQLObjectType({
         }
       }
     },
-    newPost: {
-      type: PostType,
-      args: {
-        title: { type: new GraphQLNonNull(GraphQLString) },
-        body: { type: new GraphQLNonNull(GraphQLString) },
-        author: {
-          type: new GraphQLNonNull(GraphQLString),
-          resolve(parentValue) {
-            return User.findById(parentValue.author)
-              .then((user) => user)
-              .catch((err) => null);
-          },
-        },
-      },
-      resolve(parentValue, { title, body, author }) {
-        return new Post({ title, body, author }).save();
-      },
-    },
   },
 });
 

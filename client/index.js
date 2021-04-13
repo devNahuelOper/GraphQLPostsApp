@@ -4,7 +4,7 @@ import { HashRouter } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import { InMemoryCache } from "apollo-cache-inmemory";
-// import "./public/style.css";
+import { VERIFY_USER } from "./graphql/mutations";
 import "../public/style.css";
 
 import App from "./components/App";
@@ -14,11 +14,6 @@ const cache = new InMemoryCache({
   dataIdFromObject: (object) => object.id || null,
 });
 
-cache.writeData({
-  data: {
-    isLoggedIn: Boolean(localStorage.getItem("auth-token")),
-  },
-});
 
 // set up our client instance with the cache and a uri to know where data
 // will be coming from
@@ -31,6 +26,12 @@ const client = new ApolloClient({
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);
+  },
+});
+
+cache.writeData({
+  data: {
+    isLoggedIn: Boolean(localStorage.getItem("auth-token")),
   },
 });
 

@@ -10,3 +10,17 @@ textarea {
   padding: 13.5px 14px;
   border-radius: 0.25em;
 }
+
+.register__wrap {
+  max-width: 500px;
+  margin: 100px auto;
+}
+
+#registerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+}

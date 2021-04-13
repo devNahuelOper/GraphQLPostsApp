@@ -5,11 +5,13 @@ import CreatePost from "./posts/CreatePost";
 import Register from "./Register";
 
 const App = () => (
-  <Switch>
-    <Route exact path="/" component={Register}/>
-    <Route exact path="/posts" component={PostIndex}/>
-    <Route path="/posts/new" component={CreatePost}/>
-  </Switch>
+  <div>
+    <Switch>
+      <Route path="/new" component={CreatePost} />
+      <Route path="/register" component={Register} />
+      <Route path="/" component={PostIndex} />
+    </Switch>
+  </div>
 );
 
 export default App;
