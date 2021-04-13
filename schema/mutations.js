@@ -7,9 +7,7 @@ const PostType = require("./post_type");
 const User = mongoose.model("user");
 const Post = mongoose.model("post");
 
-// const validateInputs = require("../validation/register");
 const AuthService = require("../services/auth");
-const bcrypt = require("bcryptjs");
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -21,12 +19,28 @@ const mutation = new GraphQLObjectType({
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
-      // resolve(parentValue, { name, email, password }) {
-      //   return new User({ name, email, password }).save();
-      // },
       resolve(parentValue, data) {
         return AuthService.register(data);
       },
+    },
+    login: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+      },
+      resolve(_, args) {
+        return AuthService.login(args);
+      }
+    },
+    verifyUser: {
+      type: UserType,
+      args: {
+        token: { type: GraphQLString }
+      },
+      resolve(_, args) {
+        return AuthService.verifyUser(args);
+      }
     },
     newPost: {
       type: PostType,
