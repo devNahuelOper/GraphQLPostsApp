@@ -4,6 +4,8 @@ import { HashRouter } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import { InMemoryCache } from "apollo-cache-inmemory";
+// import "./public/style.css";
+import "../public/style.css";
 
 import App from "./components/App";
 

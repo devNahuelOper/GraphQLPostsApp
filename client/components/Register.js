@@ -3,6 +3,10 @@ import { Mutation } from "react-apollo";
 import { REGISTER_USER } from "../graphql/mutations";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 class Register extends React.Component {
   constructor(props) {
@@ -11,7 +15,12 @@ class Register extends React.Component {
       name: "",
       email: "",
       password: "",
+      showPassword: false,
     };
+  }
+
+  toggleShowPassword() {
+    this.setState({ showPassword: !this.state.showPassword });
   }
 
   fieldUpdate(field) {
@@ -26,7 +35,7 @@ class Register extends React.Component {
   }
 
   render() {
-    const { name, email, password } = this.state;
+    const { name, email, password, showPassword } = this.state;
 
     const formStyle = {
       maxWidth: `${500}px`,
@@ -69,19 +78,7 @@ class Register extends React.Component {
                 fullWidth
                 onChange={this.fieldUpdate("name")}
               />
-              {/* <input
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={this.fieldUpdate("name")}
-              /> */}
               <br />
-              {/* <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={this.fieldUpdate("email")}
-              /> */}
               <TextField
                 label="Email"
                 placeholder="Email"
@@ -92,24 +89,29 @@ class Register extends React.Component {
                 onChange={this.fieldUpdate("email")}
               />
               <br />
-              {/* <input
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={this.fieldUpdate("password")}
-              /> */}
               <TextField
                 label="Password"
                 placeholder="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 variant="outlined"
                 fullWidth
                 onChange={this.fieldUpdate("password")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="Toggle Password Visibility"
+                        onClick={this.toggleShowPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <br />
-              {/* <button type="submit">Register</button> */}
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" type="submit">
                 Register
               </Button>
             </form>

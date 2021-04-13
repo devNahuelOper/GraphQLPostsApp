@@ -1,5 +1,8 @@
 import React from "react";
 import { Mutation } from "react-apollo";
+import TextField from "@material-ui/core/TextField";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Button from "@material-ui/core/Button";
 
 import { CREATE_POST } from "../../graphql/mutations";
 import gql from "graphql-tag";
@@ -25,7 +28,7 @@ class CreatePost extends React.Component {
     };
   }
 
-  update(field) {
+  fieldUpdate(field) {
     return (e) => this.setState({ [field]: e.target.value });
   }
 
@@ -62,6 +65,16 @@ class CreatePost extends React.Component {
   }
 
   render() {
+    const { title, body, message } = this.state;
+
+    const formStyle = {
+      maxWidth: `${500}px`,
+      margin: "100px auto",
+      display: "flex",
+      flexDirection: "column",
+      fontFamily: "Helvetica",
+    };
+
     return (
       <Mutation
         mutation={CREATE_POST}
@@ -79,20 +92,35 @@ class CreatePost extends React.Component {
       >
         {(createPost, { data }) => (
           <div>
-            <form onSubmit={(e) => this.handleSubmit(e, createPost)}>
-              <input
-                onChange={this.update("title")}
-                value={this.state.title}
-                placeholder="title"
+            <form
+              onSubmit={(e) => this.handleSubmit(e, createPost)}
+              style={formStyle}
+            >
+              <TextField
+                label="Title"
+                placeholder="Title"
+                value={title}
+                variant="outlined"
+                fullWidth
+                onChange={this.fieldUpdate("title")}
               />
               <br />
-              <textarea
-                onChange={this.update("body")}
+              {/* <textarea
+                onChange={this.fieldUpdate("body")}
                 value={this.state.body}
                 placeholder="body"
+              /> */}
+              <TextareaAutosize
+                aria-label="minimum height"
+                rowsMin={5}
+                placeholder="Body"
+                value={body}
+                onChange={this.fieldUpdate("body")}
               />
               <br />
-              <button type="submit">Create Post</button>
+              <Button variant="contained" color="secondary" type="submit">
+                Create Post
+              </Button>
             </form>
             <p>{this.state.message}</p>
           </div>
