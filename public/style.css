@@ -6,6 +6,10 @@ body {
   font-family: inherit;
 }
 
+a {
+  text-decoration: none;
+}
+
 textarea {
   padding: 13.5px 14px;
   border-radius: 0.25em;

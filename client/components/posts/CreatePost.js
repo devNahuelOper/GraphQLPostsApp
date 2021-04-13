@@ -70,14 +70,6 @@ class CreatePost extends React.Component {
   render() {
     const { title, body, message, messageType } = this.state;
 
-    // const formStyle = {
-    //   maxWidth: `${500}px`,
-    //   margin: "100px auto",
-    //   display: "flex",
-    //   flexDirection: "column",
-    //   fontFamily: "Helvetica",
-    // };
-
     const theme = createMuiTheme({
       palette: {
         primary: {
