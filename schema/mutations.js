@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 
 const UserType = require("./user_type");
 const PostType = require("./post_type");
-const User = mongoose.model("user");
-const Post = mongoose.model("post");
+
+const User = require("../models/User");
+const Post = require("../models/Post");
 
 const AuthService = require("../services/auth");
 

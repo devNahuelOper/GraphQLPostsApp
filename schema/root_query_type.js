@@ -2,8 +2,9 @@ const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLID, GraphQLList, GraphQLNonNull } = graphql;
 const mongoose = require("mongoose");
 
-const User = mongoose.model("user");
-const Post = mongoose.model("post");
+const User = require("../models/User");
+const Post = require("../models/Post");
+
 const UserType = require("./user_type");
 const PostType = require("./post_type");
 
