@@ -12,8 +12,15 @@ class Register extends React.Component {
     };
   }
 
-  update(field) {
+  fieldUpdate(field) {
     return (e) => this.setState({ [field]: e.target.value });
+  }
+
+  updateCache(cache, { data }) {
+    console.log(data);
+    cache.writeData({
+      data: { isLoggedIn: data.register.loggedIn },
+    });
   }
 
   render() {
@@ -26,38 +33,45 @@ class Register extends React.Component {
           console.log(data);
           const { token } = data.register;
           localStorage.setItem("auth-token", token);
+          this.props.history.push("/");
         }}
+        update={(cache, data) => this.updateCache(cache, data)}
       >
         {(registerUser) => (
           <div>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              registerUser({
-                variables: {
-                  name,
-                  email,
-                  password
-                }
-              })
-            }}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                registerUser({
+                  variables: {
+                    name,
+                    email,
+                    password,
+                  },
+                });
+              }}
+            >
               <input
                 type="text"
                 placeholder="Enter your name"
                 value={name}
-                onChange={this.update("name")}
+                onChange={this.fieldUpdate("name")}
               />
+              <br />
               <input
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={this.update("email")}
+                onChange={this.fieldUpdate("email")}
               />
+              <br />
               <input
                 type="password"
                 placeholder="Enter your password"
                 value={password}
-                onChange={this.update("password")}
+                onChange={this.fieldUpdate("password")}
               />
+              <br />
               <button type="submit">Register</button>
             </form>
           </div>

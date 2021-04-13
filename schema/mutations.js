@@ -32,15 +32,31 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, args) {
         return AuthService.login(args);
-      }
+      },
     },
     verifyUser: {
       type: UserType,
       args: {
-        token: { type: GraphQLString }
+        token: { type: GraphQLString },
       },
       resolve(_, args) {
         return AuthService.verifyUser(args);
+      },
+    },
+    createPost: {
+      type: PostType,
+      args: {
+        title: { type: GraphQLString },
+        body: { type: GraphQLString },
+      },
+      async resolve(_, { title, body }, ctx) {
+        const validUser = await AuthService.verifyUser({ token: ctx.token });
+        if (validUser.loggedIn) {
+          const id = validUser.id;
+          return new Post({ title, id, body}).save();
+        } else {
+          throw new Error("Sorry, you need to be logged in to create a post.");
+        }
       }
     },
     newPost: {

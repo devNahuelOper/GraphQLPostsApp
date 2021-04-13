@@ -23,6 +23,9 @@ cache.writeData({
 const client = new ApolloClient({
   uri: "http://localhost:5000/graphql",
   cache,
+  headers: {
+    authorization: localStorage.getItem("auth-token"),
+  },
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);

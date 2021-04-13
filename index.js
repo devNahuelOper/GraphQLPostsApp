@@ -11,7 +11,6 @@ const expressGraphQL = require("express-graphql").graphqlHTTP;
 
 const schema = require("./schema/schema");
 
-
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
@@ -23,9 +22,14 @@ app.use(bodyParser.json());
 
 app.use(
   "/graphql",
-  expressGraphQL({
-    schema,
-    graphiql: true,
+  expressGraphQL((req) => {
+    return {
+      schema,
+      context: {
+        token: req.headers.authorization,
+      },
+      graphiql: true,
+    };
   })
 );
 

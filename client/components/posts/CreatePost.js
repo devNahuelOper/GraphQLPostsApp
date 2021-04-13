@@ -85,11 +85,13 @@ class CreatePost extends React.Component {
                 value={this.state.title}
                 placeholder="title"
               />
+              <br />
               <textarea
                 onChange={this.update("body")}
                 value={this.state.body}
                 placeholder="body"
               />
+              <br />
               <button type="submit">Create Post</button>
             </form>
             <p>{this.state.message}</p>
