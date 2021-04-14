@@ -29,7 +29,7 @@ const App = () => {
             {data.posts.map((post) => (
               <li key={post.id} className="post">
                 <h2>{post.title}
-                 {post.author && <h6 className="post-author">{post.author.name}</h6>}
+                 {post.author && <small className="post-author">{post.author.name}</small>}
                 </h2>
                 <p>{post.body}</p>
               </li>

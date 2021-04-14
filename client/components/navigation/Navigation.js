@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    color: "#fff"
+    color: "#fff",
+    fontSize: `${1.5}rem`,
+    "&:hover": {
+      color: "#726d6d"
+    }
   },
   toolBar: {
     display: "flex",
