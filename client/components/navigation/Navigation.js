@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     fontSize: `${1.5}rem`,
     "&:hover": {
-      color: "#726d6d"
-    }
+      textShadow: `${2}px ${2}px #726d6d80`,
+    },
   },
   toolBar: {
     display: "flex",
