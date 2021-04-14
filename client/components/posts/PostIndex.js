@@ -21,9 +21,9 @@ const App = () => {
         if (error) return `Error! ${error.message}`;
 
         return (
-          <ul>
+          <ul className="post-index">
             {data.posts.map((post) => (
-              <li key={post.id}>
+              <li key={post.id} className="post">
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
               </li>
