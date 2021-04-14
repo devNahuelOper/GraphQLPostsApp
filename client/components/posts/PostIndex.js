@@ -9,6 +9,10 @@ export const FETCH_POSTS = gql`
       id
       title
       body
+      author {
+        name
+        email
+      }
     }
   }
 `;
@@ -19,12 +23,14 @@ const App = () => {
       {({ loading, error, data }) => {
         if (loading) return "Loading...";
         if (error) return `Error! ${error.message}`;
-
+        console.log(data);
         return (
           <ul className="post-index">
             {data.posts.map((post) => (
               <li key={post.id} className="post">
-                <h2>{post.title}</h2>
+                <h2>{post.title}
+                 {post.author && <h6 className="post-author">{post.author.name}</h6>}
+                </h2>
                 <p>{post.body}</p>
               </li>
             ))}
